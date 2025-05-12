@@ -17,8 +17,15 @@ Currently, the planner is virtual - the optimized trajectories cannot yet be run
 This repository uses python 3.8.
 
 ```bash
-cd stretch_planner
+cd stretch_trajectory_planner
 pip install -e .
+```
+
+To test your installation, run:
+
+```bash
+cd stretch_trajectory_planner
+python3 test/example.py
 ```
 
 ## Dependencies
@@ -85,6 +92,10 @@ trajectory = Trajectory(waypoints)
 The `Trajectory` class provides some helpful getters and setters. For example, `Trajectory::get_xyz_series()` returns a 3xN `np.ndarray` of XYZ coordinates along the trajectory, and `Trajectory::set_xyz(np.ndarray)` updates the position component of the `Waypoints` inside of it.
 
 # Notes
+
+## Possible Bugs
+
+* Testing w/ python 3.13 on 12 May 2025: in OpTaS's `visualize.py`, the definition of `Visualizer.sphere()` uses the `@arrayify_args` decorator, which casts all inputs to `CasADI` objects. This raises an exception for `SetThetaResolution()` and `SetPhiResolution()`, which expect `int` inputs. Fix: cast inputs to these functions to `int` inside the package source.
 
 ## Optimization Environment
 
