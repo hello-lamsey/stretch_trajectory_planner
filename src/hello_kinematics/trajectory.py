@@ -113,6 +113,8 @@ class Trajectory:
         """
         Returns the trajectory as a 3xN np.ndarray of XYZ coordinates.
         """
+        if any(w.position is None for w in self.waypoints):
+            raise ValueError("One or more waypoints have no position set.")
 
         return np.array([w.position for w in self.waypoints]).T
     
@@ -120,6 +122,8 @@ class Trajectory:
         """
         Returns the trajectory as a 4xN np.ndarray of Qw Qx Qy Qz coordinates.
         """
+        if any(w.orientation is None for w in self.waypoints):
+            raise ValueError("One or more waypoints have no orientation set.")
 
         return np.array([w.orientation for w in self.waypoints]).T
     
